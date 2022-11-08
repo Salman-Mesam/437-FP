@@ -1,6 +1,6 @@
 
 Table of contents.
-=================s
+=================ss
 
 <!--ts-->
    * [Spring Boot in Openshift](#openshift)
