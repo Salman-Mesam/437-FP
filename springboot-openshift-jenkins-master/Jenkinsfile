@@ -1,8 +1,7 @@
 node {
   stage('Preparation') {
 
-    // Get some code from a GitHub repository
-    git "https://github.com/Salman-Mesam/437-FP"
+    
 
     // Get the Maven tool.
     // ** NOTE: This 'M3' Maven tool must be configured
@@ -10,35 +9,18 @@ node {
     mvnHome = tool 'Maven353'
  }
 
- stage('Build Image') {
-      steps {
-        dir("springboot-backend"){
-           sh "docker build -t ${dockerImageTag} ."
-        }
-
-      }
-    }
-
- stage('Build & Test in Jenkins') {
+stage('Build & Test in Jenkins') {
     // Run the maven build
     sh "'${mvnHome}/bin/mvn' test || exit 0"
  }
-
-stage('Run unit tests') {
+ 
+ stage('Build Image') {
       steps {
-        echo "Run unit tests"
-        sh 'mvn test'
-      }
-      post {
-        always {
-          junit 'target/surefire-reports/*.xml'
-        }
+           sh "docker build -t salmanGurdy ."
       }
     }
 
-   stage('Generating Report') {
-    junit '**/target/surefire-reports/TEST-*.xml'
-   }
-   
 
+
+   
 }
