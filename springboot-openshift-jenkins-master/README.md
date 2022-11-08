@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 sss
 Table of contents
 =================
+=======
+
+Table of contents....s
+=================ss
+>>>>>>> 4c21a1d5c9277d236c55ba8f1b8e96af9aee90b6
 
 <!--ts-->
    * [Spring Boot in Openshift](#openshift)
