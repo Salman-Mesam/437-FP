@@ -1,10 +1,4 @@
 
-<!--ts-->
-   * [Spring Boot in Openshift](#openshift)
-   * [Configuring Continuous Integration](#continous)
-   * [Faster Continuous Integration](#faster)
-<!--te-->
-
 
 <a name="openshift"/>
 
