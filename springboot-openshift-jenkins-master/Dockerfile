@@ -1,0 +1,14 @@
+FROM openjdk:8 as build
+CMD ["chmod -r 777 ."] 
+CMD ["chown -R :root ."]
+COPY src /home/app/src
+COPY pom.xml /home/app
+ENV my_env .
+WORKDIR "/home/app"
+EXPOSE 8600
+CMD ["./mvnw clean install"]
+
+ENV APP_HOME /usr/src/app
+COPY  $my_env/target/ROOT.jar.jar $APP_HOME/app.jar
+WORKDIR $APP_HOME
+ENTRYPOINT ["java" , "-jar" , "app.jar"]
