@@ -9,6 +9,6 @@ EXPOSE 8600
 CMD ["./mvnw clean install"]
 
 ENV APP_HOME /usr/src/app
-COPY  $my_env/target/ROOT.jar.jar $APP_HOME/app.jar
+COPY  $my_env/target/ROOT.jar $APP_HOME/app.jar
 WORKDIR $APP_HOME
 ENTRYPOINT ["java" , "-jar" , "app.jar"]
