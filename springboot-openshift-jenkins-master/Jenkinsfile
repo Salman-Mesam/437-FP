@@ -1,17 +1,30 @@
-def projectName = 'dfoodh-dev'
-def version = "0.0.${currentBuild.number}"
-def dockerImageTag = "${projectName}:${version}"
+node {
+  stage('Preparation') {
 
-def appName = "${params.PROJECT_NAME}"
-def imageBuildConfig = appName
-def deploymentConfig = appName
+    // Get some code from a GitHub repository
+    git "https://github.com/Salman-Mesam/437-FP"
 
-pipeline {
-  agent {
-    label 'maven'
-  }
-  stages {
-    stage('Run unit tests') {
+    // Get the Maven tool.
+    // ** NOTE: This 'M3' Maven tool must be configured
+    // **       in the global configuration.
+    mvnHome = tool 'Maven353'
+ }
+
+ stage('Build Image') {
+      steps {
+        dir("springboot-backend"){
+           sh "docker build -t ${dockerImageTag} ."
+        }
+
+      }
+    }
+
+ stage('Build & Test in Jenkins') {
+    // Run the maven build
+    sh "'${mvnHome}/bin/mvn' test || exit 0"
+ }
+
+stage('Run unit tests') {
       steps {
         echo "Run unit tests"
         sh 'mvn test'
@@ -23,19 +36,9 @@ pipeline {
       }
     }
 
-    
-    stage('Build Image') {
-      steps {
-        dir("springboot-backend"){
-           sh "docker build -t ${dockerImageTag} ."
-        }
+   stage('Generating Report') {
+    junit '**/target/surefire-reports/TEST-*.xml'
+   }
+   
 
-      }
-    }
-
-
-    
-
- 
-  }
 }
